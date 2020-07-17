@@ -21,10 +21,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
@@ -32,17 +28,51 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.2.3.Final</version>
+		</dependency>
+
+		<!-- H2 -->
+		<dependency>
+		  <groupId>com.h2database</groupId>
+		  <artifactId>h2</artifactId>
+		  <scope>test</scope>
+		</dependency>
+
+    <!-- mysql -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -61,7 +91,189 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- 페이즈의 start goals = pre integration , stop goals = pre integration  -->
+				<executions>
+					<execution>
+						<id>pre integration test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post integration test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
+			<!-- Exec Maven Plugin : npm 명령어 실행-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions> <!--npm 명령어의 상세 내용을 추가하는 곳-->
+					<execution>
+						<id>font-end install</id>          <!-- npm install-->
+						<goals>
+							<goal>exec</goal>              <!--외부 프로그램이라고 명시-->
+						</goals>
+						<phase>prepare-package</phase>     <!-- 페이즈가 prepare-package 동안 실행 된다고 알린다. -->
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>font-end unit test</id>        <!-- npm run test:unit-->
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>test:unit</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>font-end build package</id>     <!-- npm run build-->
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>front-end e2e test</id>     <!-- npm run test:e2e-->
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>integration-test</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>test:e2e</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<workingDirectory>${basedir}/front-end</workingDirectory> <!-- npm 실행되는 위치 지정-->
+				</configuration>
+			</plugin>
+			<!-- Maven Resources Plugin npm 명령어 실행-->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<!-- 템플릿 파일-->
+					<execution>
+						<id>copy front-end template</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/templates</outputDirectory> <!-- 복사 저장위치-->
+							<resources>
+								<resource>
+									<directory>front-end/dist</directory> <!--복사 루트 /dist == distribute 배포  -->
+									<includes>
+										<include>index.html</include>  <!--복사 대상-->
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<!-- 정적 파일 -->
+					<execution>
+						<id>copy front-end assets</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/static</outputDirectory> <!-- 복사 저장위치-->
+							<resources>
+								<resource>
+									<directory>front-end/dist</directory> <!--복사 루트 /dist == distribute 배포  -->
+									<excludes>
+										<exclude>index.html</exclude> <!--생략할 파일   -->
+									</excludes>
+								</resource>
+						</resources>
+						</configuration>
+					</execution>
+					<!-- src/main/resources -> target/classes 복사 -->
+					<execution>
+						<id>copy front-end template to target</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/templates</outputDirectory>
+							<resources>
+								<resource>
+									<directory>front-end/dist</directory>
+								<includes>
+									<include>index.html</include>
+								</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy front-end assets to target</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+						<outputDirectory>${basedir}/target/classes/static</outputDirectory>
+						<resources>
+							<resource>
+							<directory>front-end/dist</directory>
+							<excludes>
+								<exclude>index.html</exclude>
+							</excludes>
+							</resource>
+						</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 스프링 부트를 빌드하기전에 기존 리소스 제거 -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+				<filesets>
+					<fileset>
+					<directory>${basedir}/src/main/resources/static/static</directory>
+					</fileset>
+					<fileset>
+					<directory>${basedir}/src/main/resources/templates</directory>
+					<includes>
+						<include>index.html</include>
+					</includes>
+					</fileset>
+				</filesets>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
