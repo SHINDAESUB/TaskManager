@@ -1,5 +1,3 @@
 module.exports = {
-  rules: {
-    'no-unused-expressions': 'off'
-  }
+  lintOnSave : false
 }

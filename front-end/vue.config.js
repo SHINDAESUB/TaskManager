@@ -2,11 +2,20 @@
 module.exports = {
   devServer: {
     port: 3000,
-
     proxy:{
       '/api/*': {
            target: 'http://localhost:8080' //모든 API 요청은 Back-end 에게 갈 수 있도록 설정
       }
     }
+  },
+  configureWebpack: { // 웹팩에 새로운 진입점 만들기
+    entry: {
+      app: './src/main.js',
+      style: [
+        'bootstrap/dist/css/bootstrap.min.css'
+      ]
+    }
   }
 }
+
+
