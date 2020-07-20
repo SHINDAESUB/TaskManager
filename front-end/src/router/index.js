@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LoginPage from '@/views/LoginPage'
-import RegisterPage from '@/views/RegisterPage'
+import JoinPage from '@/views/JoinPage'
 
 Vue.use(Router)
 
@@ -13,8 +13,8 @@ export default new Router({
     name: 'LoginPage',
     component: LoginPage
   }, {
-    path: '/register',
-    name: 'RegisterPage',
-    component: RegisterPage
+    path: '/join',
+    name: 'JoinPage',
+    component: JoinPage
   }]
 })
