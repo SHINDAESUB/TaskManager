@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import Vuelidate from 'vuelidate'
 
 // axios 설정
 axios.defaults.baseURL = '/api'  //모든 요청에 '/api' 붙도록 기본 설정
@@ -13,6 +14,8 @@ axios.interceptors.response.use(  //Error 전파하기 위해 인터셉터 응�
     return Promise.reject(error)
   }
 )
+
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 
