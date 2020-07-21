@@ -1,4 +1,4 @@
-package com.taskManager.web.pages;
+package com.taskManager.web.page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
