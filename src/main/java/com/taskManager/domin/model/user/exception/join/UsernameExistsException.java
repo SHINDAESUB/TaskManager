@@ -1,4 +1,4 @@
-package com.taskManager.domin.model.user.exception;
+package com.taskManager.domin.model.user.exception.join;
 
 public class UsernameExistsException extends JoinException {
 

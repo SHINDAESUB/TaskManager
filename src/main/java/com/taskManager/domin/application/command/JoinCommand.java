@@ -30,7 +30,6 @@ public class JoinCommand {
   public JoinCommand() {
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

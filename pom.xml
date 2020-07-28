@@ -23,13 +23,6 @@
   </properties>
 
   <dependencies>
-
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>2.0.1.Final</version>
-    </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -66,20 +59,23 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>6.0.7.Final</version>
+    </dependency>
   </dependencies>
 
   <build>
+    <!-- 페이즈의 start goals = pre integration , stop goals = pre integration  -->
      <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.19.1</version>
-        <configuration>
-            <testFailureIgnore>true</testFailureIgnore>
-        </configuration>
-    </plugin>
-
-      <!-- 페이즈의 start goals = pre integration , stop goals = pre integration  -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -106,11 +102,11 @@
         <!--npm 명령어의 상세 내용을 추가하는 곳-->
         <executions>
           <execution>
-            <id>font-end install</id><!-- npm install-->
+            <id>font-end install</id>
             <goals>
               <goal>exec</goal><!--외부 프로그램이라고 명시-->
             </goals>
-            <phase>prepare-package</phase> <!-- 페이즈가 prepare-package 동안 실행 된다고 알린다. -->
+            <phase>prepare-package</phase><!-- 페이즈가 prepare-package 동안 실행 된다고 알린다. -->
             <configuration>
               <executable>npm</executable>
               <arguments>
@@ -119,7 +115,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>font-end unit test</id>   <!-- npm run test:unit-->
+            <id>font-end unit test</id><!-- npm run test:unit-->
             <goals>
               <goal>exec</goal>
             </goals>
@@ -133,7 +129,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>font-end build package</id> <!-- npm run build-->
+            <id>font-end build package</id><!-- npm run build-->
             <goals>
               <goal>exec</goal>
             </goals>
@@ -147,7 +143,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>front-end e2e test</id> <!-- npm run test:e2e-->
+            <id>front-end e2e test</id><!-- npm run test:e2e-->
             <goals>
               <goal>exec</goal>
             </goals>
@@ -162,7 +158,7 @@
           </execution>
         </executions>
         <configuration>
-          <workingDirectory>${basedir}/front-end</workingDirectory> <!-- npm 실행되는 위치 지정-->
+          <workingDirectory>${basedir}/front-end</workingDirectory><!-- npm 실행되는 위치 지정-->
         </configuration>
       </plugin>
       <!-- Maven Resources Plugin npm 명령어 실행-->
@@ -170,7 +166,6 @@
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.1.0</version>
         <executions>
-          <!-- 템플릿 파일-->
           <execution>
             <id>copy front-end template</id>
             <goals>
@@ -178,12 +173,12 @@
             </goals>
             <phase>prepare-package</phase>
             <configuration>
-              <outputDirectory>${basedir}/src/main/resources/templates</outputDirectory> <!-- 복사 저장위치-->
+              <outputDirectory>${basedir}/src/main/resources/templates</outputDirectory><!-- 복사 저장위치-->
               <resources>
                 <resource>
-                  <directory>front-end/dist</directory> <!--복사 루트 /dist == distribute 배포  -->
+                  <directory>front-end/dist</directory><!--복사 루트 /dist == distribute 배포  -->
                   <includes>
-                    <include>index.html</include>  <!--복사 대상-->
+                    <include>index.html</include><!--복사 대상-->
                   </includes>
                 </resource>
               </resources>
@@ -196,12 +191,12 @@
             </goals>
             <phase>prepare-package</phase>
             <configuration>
-              <outputDirectory>${basedir}/src/main/resources/static</outputDirectory>  <!-- 복사 저장위치-->
+              <outputDirectory>${basedir}/src/main/resources/static</outputDirectory><!-- 복사 저장위치-->
               <resources>
                 <resource>
-                  <directory>front-end/dist</directory> <!--복사 루트 /dist == distribute 배포  -->
+                  <directory>front-end/dist</directory><!--복사 루트 /dist == distribute 배포  -->
                   <excludes>
-                    <exclude>index.html</exclude> <!--생략할 파일   -->
+                    <exclude>index.html</exclude><!--생략할 파일 -->
                   </excludes>
                 </resource>
               </resources>
@@ -246,7 +241,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- 스프링 부트를 빌드하기전에 기존 리소스 제거 -->
+     <!-- 스프링 부트를 빌드하기전에 기존 리소스 제거 -->
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
         <version>3.1.0</version>

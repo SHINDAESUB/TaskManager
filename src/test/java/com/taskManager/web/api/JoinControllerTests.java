@@ -2,8 +2,8 @@ package com.taskManager.web.api;
 
 
 import com.taskManager.domin.application.service.UserService;
-import com.taskManager.domin.model.user.exception.EmailAddressExistsException;
-import com.taskManager.domin.model.user.exception.UsernameExistsException;
+import com.taskManager.domin.model.user.exception.join.EmailAddressExistsException;
+import com.taskManager.domin.model.user.exception.join.UsernameExistsException;
 import com.taskManager.utils.JsonUtils;
 import com.taskManager.web.payload.JoinPayload;
 import org.junit.Test;
