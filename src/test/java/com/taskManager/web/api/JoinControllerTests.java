@@ -1,6 +1,6 @@
 package com.taskManager.web.api;
 
-
+import com.taskManager.config.SecurityConfiguration;
 import com.taskManager.domin.application.service.UserService;
 import com.taskManager.domin.model.user.exception.join.EmailAddressExistsException;
 import com.taskManager.domin.model.user.exception.join.UsernameExistsException;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,7 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /* Unable to find a @SpringBootConfiguration ... error 문제일 경우 == main 위치 확인  */
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(JoinController.class)
+@ContextConfiguration(classes = {SecurityConfiguration.class , JoinController.class})
+@WebMvcTest
 public class JoinControllerTests {
 
   @Autowired
