@@ -41,12 +41,14 @@
         </form>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import joinService from '@/service/join'
 import { required , email , minLength , maxLength , alphaNum}  from 'vuelidate/lib/validators'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'JoinPage',
@@ -60,7 +62,9 @@ export default {
       errorMessage : ''
     }
   },
-
+  components: {
+    Footer
+  },
   validations: {
     form: {
       username:{
@@ -101,25 +105,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  max-width: 900px;
+.accept-terms {
+  max-width: 900px;	 
+   margin: 20px 0 40px 0;
 }
-.join-form {
-  margin-top: 50px;
-  max-width: 320px;
-}
-.join-form {
-  .form-group label {
-    font-weight: bold;
-    color: #555;
-  }
-  .accept-terms {
-    margin: 20px 0 40px 0;
-  }
-}
-
-.join-title {
-  margin-bottom: 50px;
-}
-
 </style>
