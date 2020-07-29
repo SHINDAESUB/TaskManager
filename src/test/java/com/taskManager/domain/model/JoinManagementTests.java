@@ -1,19 +1,19 @@
 package com.taskManager.domain.model;
 
-import com.taskManager.domin.common.security.PasswordEncryptor;
-import com.taskManager.domin.model.user.JoinManagement;
-import com.taskManager.domin.model.user.User;
-import com.taskManager.domin.model.user.UserRepository;
-import com.taskManager.domin.model.user.exception.join.EmailAddressExistsException;
-import com.taskManager.domin.model.user.exception.join.JoinException;
-import com.taskManager.domin.model.user.exception.join.UsernameExistsException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
+import com.taskManager.domain.common.security.PasswordEncryptor;
+import com.taskManager.domain.model.user.JoinManagement;
+import com.taskManager.domain.model.user.User;
+import com.taskManager.domain.model.user.UserRepository;
+import com.taskManager.domain.model.user.exception.join.EmailAddressExistsException;
+import com.taskManager.domain.model.user.exception.join.JoinException;
+import com.taskManager.domain.model.user.exception.join.UsernameExistsException;
 
 public class JoinManagementTests {
     private UserRepository repositoryMock;

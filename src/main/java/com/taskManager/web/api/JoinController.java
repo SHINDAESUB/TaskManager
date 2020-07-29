@@ -2,10 +2,10 @@ package com.taskManager.web.api;
 
 import javax.validation.Valid;
 
-import com.taskManager.domin.application.service.UserService;
-import com.taskManager.domin.model.user.exception.join.EmailAddressExistsException;
-import com.taskManager.domin.model.user.exception.join.JoinException;
-import com.taskManager.domin.model.user.exception.join.UsernameExistsException;
+import com.taskManager.domain.application.service.UserService;
+import com.taskManager.domain.model.user.exception.join.EmailAddressExistsException;
+import com.taskManager.domain.model.user.exception.join.JoinException;
+import com.taskManager.domain.model.user.exception.join.UsernameExistsException;
 import com.taskManager.web.payload.JoinPayload;
 import com.taskManager.web.result.ApiResult;
 import com.taskManager.web.result.Result;

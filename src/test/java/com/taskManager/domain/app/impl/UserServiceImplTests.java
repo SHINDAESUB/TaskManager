@@ -1,19 +1,5 @@
 package com.taskManager.domain.app.impl;
 
-import com.taskManager.domin.application.command.JoinCommand;
-import com.taskManager.domin.application.service.UserServiceImpl;
-import com.taskManager.domin.common.event.DomainEventPublisher;
-import com.taskManager.domin.common.mail.MailManager;
-import com.taskManager.domin.common.mail.MessageVariable;
-import com.taskManager.domin.model.user.AuthenticatedUser;
-import com.taskManager.domin.model.user.JoinManagement;
-import com.taskManager.domin.model.user.User;
-import com.taskManager.domin.model.user.UserRepository;
-import com.taskManager.domin.model.user.event.JoinEvent;
-import com.taskManager.domin.model.user.exception.join.EmailAddressExistsException;
-import com.taskManager.domin.model.user.exception.join.JoinException;
-import com.taskManager.domin.model.user.exception.join.UsernameExistsException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -24,6 +10,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
+import com.taskManager.domain.application.command.JoinCommand;
+import com.taskManager.domain.application.service.UserServiceImpl;
+import com.taskManager.domain.common.event.DomainEventPublisher;
+import com.taskManager.domain.common.mail.MailManager;
+import com.taskManager.domain.common.mail.MessageVariable;
+import com.taskManager.domain.model.user.AuthenticatedUser;
+import com.taskManager.domain.model.user.JoinManagement;
+import com.taskManager.domain.model.user.User;
+import com.taskManager.domain.model.user.UserRepository;
+import com.taskManager.domain.model.user.event.JoinEvent;
+import com.taskManager.domain.model.user.exception.join.EmailAddressExistsException;
+import com.taskManager.domain.model.user.exception.join.JoinException;
+import com.taskManager.domain.model.user.exception.join.UsernameExistsException;
 
 public class UserServiceImplTests {
     

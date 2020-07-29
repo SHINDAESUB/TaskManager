@@ -1,11 +1,12 @@
 package com.taskManager.repository;
 
 import org.hibernate.query.Query;
-import com.taskManager.domin.model.user.User;
-import com.taskManager.domin.model.user.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+
+import com.taskManager.domain.model.user.User;
+import com.taskManager.domain.model.user.UserRepository;
 
 /**
  * 회원가입 구현부

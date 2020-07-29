@@ -4,8 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 // import javax.validation.ConstraintViolationException;
 
-import com.taskManager.domin.model.user.User;
-import com.taskManager.domin.model.user.UserRepository;
+import com.taskManager.domain.model.user.User;
+import com.taskManager.domain.model.user.UserRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

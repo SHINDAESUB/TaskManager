@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.taskManager.domin.application.command.JoinCommand;
+import com.taskManager.domain.application.command.JoinCommand;
 
 /* @Size 어노테이션은 null 값을 유효값으로 간주하기 떄문에 @NotNull 적어주세요 */
 public class JoinPayload {
