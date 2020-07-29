@@ -1,18 +1,20 @@
 package com.taskManager.domin.common.security;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-  /**
-   * password 복호화 구현
-   * 
-   */
-
+/** 암호 복호화 */
 @Component
 public class PasswordEncryptorImpl implements PasswordEncryptor {
 
+  private PasswordEncoder passwordEncoder;
+
+  public PasswordEncryptorImpl(PasswordEncoder passwordEncoder) {
+    this.passwordEncoder = passwordEncoder;
+  }
+
   @Override
   public String encrypt(String rawPassword) {
-
-    return rawPassword;
+    return passwordEncoder.encode(rawPassword);
   }
 }
