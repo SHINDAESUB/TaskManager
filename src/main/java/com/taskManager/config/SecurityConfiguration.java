@@ -1,4 +1,8 @@
 package com.taskManager.config;
+import com.taskManager.web.api.authenticate.AuthenticationFilter;
+import com.taskManager.web.api.authenticate.UserAuthenticationFailureHandler;
+import com.taskManager.web.api.authenticate.UserAuthenticationSuccessHandler;
+import com.taskManager.web.api.authenticate.UserLogoutSuccessHandler;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /* 스프링 시큐리티 설정 */
 @EnableWebSecurity
@@ -20,17 +28,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
     protected void configure(HttpSecurity http) throws Exception {
       http
         .authorizeRequests()
-        .antMatchers(PUBLIC).permitAll() // PUBLIC 에 설정한 HTTP 요청은 누구나 허용
-        .anyRequest().authenticated()    // PUBLIC 을 제외한 경로는 인증 필요 설정
+          .antMatchers(PUBLIC).permitAll() // PUBLIC 에 설정한 HTTP 요청은 누구나 허용
+          .anyRequest().authenticated()    // PUBLIC 을 제외한 경로는 인증 필요 설정
         .and()
-        .formLogin()
-        .loginPage("/login")  //로그인 URL 경로 걸정
+          .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+          .formLogin()
+          .loginPage("/login")  //로그인 URL 경로 걸정
         .and()
-        .logout()
-        .logoutUrl("/logout") //로그아웃 URL 경로 걸정
-        .logoutSuccessUrl("/login?logged-out") //로그아웃 이후 리다이렉트 경로 설정 
+          .logout()
+          .logoutUrl("/logout") //로그아웃 URL 경로 걸정
+          .logoutSuccessHandler(logoutSuccessHandler()) //로그아웃 이후 리다이렉트 경로 설정 
         .and()
-        .csrf().disable();
+          .csrf().disable();
     }
   
     @Override
@@ -42,5 +51,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
     @Bean
     public PasswordEncoder passwordEncoder(){
       return new BCryptPasswordEncoder();
+    }
+    /* 인증 필터 */
+    @Bean
+    public AuthenticationFilter authenticationFilter() throws Exception {
+      AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+      authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+      authenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
+      authenticationFilter.setAuthenticationManager(authenticationManagerBean());
+      return authenticationFilter;
+    }
+  
+    /*인증 성공 핸들러 */
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+      return new UserAuthenticationSuccessHandler(); 
+    }
+
+    /*인증 실패 핸들러 */
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+      return new UserAuthenticationFailureHandler();
+    }
+  
+    /*로그아웃 핸들러 */
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+      return new UserLogoutSuccessHandler();
     }
 }

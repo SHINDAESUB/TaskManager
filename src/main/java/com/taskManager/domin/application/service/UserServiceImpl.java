@@ -6,14 +6,18 @@ import com.taskManager.domin.application.command.JoinCommand;
 import com.taskManager.domin.common.event.DomainEventPublisher;
 import com.taskManager.domin.common.mail.MailManager;
 import com.taskManager.domin.common.mail.MessageVariable;
+import com.taskManager.domin.model.user.AuthenticatedUser;
 import com.taskManager.domin.model.user.JoinManagement;
 import com.taskManager.domin.model.user.User;
+import com.taskManager.domin.model.user.UserRepository;
 import com.taskManager.domin.model.user.event.JoinEvent;
 import com.taskManager.domin.model.user.exception.join.JoinException;
 
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /* UserService 역할
 * 1. model 작업만 조정한다.
@@ -29,13 +33,17 @@ public class UserServiceImpl implements UserService {
   private JoinManagement joinManagement;
   private DomainEventPublisher domainEventPublisher;
   private MailManager mailManager;
+  private UserRepository userRepository;
 
-  public UserServiceImpl(JoinManagement joinManagement , DomainEventPublisher domainEventPublisher ,MailManager mailManager){
+  public UserServiceImpl(JoinManagement joinManagement, 
+                         DomainEventPublisher domainEventPublisher,
+                         MailManager mailManager,
+                         UserRepository userRepository) {
     this.joinManagement = joinManagement;
     this.domainEventPublisher = domainEventPublisher;
     this.mailManager = mailManager;
+    this.userRepository =userRepository;
   }
-
 
   @Override
   public void join(JoinCommand command) throws JoinException {
@@ -47,9 +55,31 @@ public class UserServiceImpl implements UserService {
     domainEventPublisher.publish(new JoinEvent(signUp));
   }
 
-  /* 사용자가 등록되면 command에 검증이 완료된 입력한 주소로 보낸다.*/
-  private void sendWelcomeMessage(User newUser){
-    mailManager.send(newUser.getEmailAddress() , "회원가입을 축하드립니다.", "welcome.ftl", MessageVariable.from("New user", newUser));
+  /* 사용자가 등록되면 command에 검증이 완료된 입력한 주소로 보낸다. */
+  private void sendWelcomeMessage(User newUser) {
+    mailManager.send(newUser.getEmailAddress(), "회원가입을 축하드립니다.", "welcome.ftl",
+        MessageVariable.from("New user", newUser));
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    if (StringUtils.isEmpty(username)) {
+      throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
+    }
+    User user;
+
+    /* "@" 포할 될 경우엔 이메일 조회 아닐경우 이름 조회*/
+    if (username.contains("@")) {
+      user = userRepository.findByEmailAddress(username);
+    } else {
+      user = userRepository.findByUsername(username);
+    }
+    if (user == null) {
+      throw new UsernameNotFoundException("사용자 `" + username + " 찾을 수 없습니다.`");
+    }
+    
+    //UserDetails interface를 구현 하는 AuthenticatedUser 인스턴스 반환
+    return new AuthenticatedUser(user);
   }
 
 }
