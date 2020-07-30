@@ -172,7 +172,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>front-end e2e test</id><!-- npm run test:e2e-->
+            <id>front-end e2e test</id><!-- npm run test:integration 8080 포트에서 테스트 할 수 있도록 설정 -->
             <goals>
               <goal>exec</goal>
             </goals>
@@ -181,7 +181,7 @@
               <executable>npm</executable>
               <arguments>
                 <argument>run</argument>
-                <argument>test:e2e</argument>
+                <argument>test:integration</argument>
               </arguments>
             </configuration>
           </execution>
