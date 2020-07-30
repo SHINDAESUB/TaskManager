@@ -42,5 +42,17 @@ describe('serive/join', () => {
     })
   })
 
+  it(' `/join` API 호출', () => {
+    expect.assertions(1)
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      expect(request.url).toEqual('/join')
+      request.respondWith({
+        status: 200,
+        response: {result: 'success'}
+      })
+    })
+    return joinService.join()
+  })
 
 })

@@ -72,7 +72,7 @@ describe('LoginPage.vue', () => {
     wrapper.vm.submitForm()
     expect(loginSpy).toBeCalled()
     await wrapper.vm.$nextTick()
-    expect(stub).toHaveBeenCalledWith({name: 'HomePage'})
+    expect(stub).toHaveBeenCalledWith({name: 'home'})
   })
 
   it('잘못된 데이터 제출을 방지하기 위해 유효성 검사 테스트', () => {

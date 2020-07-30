@@ -77,7 +77,7 @@ describe( 'JoinPage.vue' , ()=> {
   //   wrapper.vm.submitForm()
   //   expect(joinSpy).toBeCalled()
   //   await wrapper.vm.$nextTick(() => {
-  //     expect(stub).toHaveBeenCalledWith({name: 'LoginPage'})
+  //     expect(stub).toHaveBeenCalledWith({name: 'login'})
   //   })
   //  })
 

@@ -94,7 +94,7 @@ export default {
       }
 
       joinService.join(this.form).then(()=>{
-        this.$router.push({name: 'LoginPage'})
+        this.$router.push({name: 'login'})
       }).catch((error) => {
         this.errorMessage = "등록에 실패 했습니다." + (error.massage ? error.message : '알수 없는 이유')
       })
