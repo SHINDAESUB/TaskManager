@@ -1,4 +1,5 @@
 import axios from 'axios'
+import errorParser from '@/utils/errorParser'
 
 export default{
     login (detail) {
@@ -7,7 +8,7 @@ export default{
               .then(({data}) => { 
                 resolve(data)})
               .catch((error) => {
-                reject(error)
+                reject(errorParser.parse(error))
             })
         })
     }

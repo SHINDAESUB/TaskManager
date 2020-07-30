@@ -1,4 +1,5 @@
 import axios from 'axios'
+import errorParser from '@/utils/errorParser'
 
 export default {
   join (detail) {
@@ -6,7 +7,7 @@ export default {
       axios.post('/join', detail).then(({data}) => {
         resolve(data)
       }).catch((error) => {
-        reject(error)
+        reject(errorParser.parse(error))
       })
     })
   }

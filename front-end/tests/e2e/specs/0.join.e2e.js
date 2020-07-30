@@ -7,7 +7,7 @@ const user = {}
 
 module.exports = {
   before: function () {
-    const userDataPath = path.resolve('tests/e2e/data/user.js') // 예제 데이터 생성 하기 위함
+    const userDataPath = path.resolve('tests/e2e/data/user.js')
     del.sync([userDataPath])
     // Generating user data
     const chance = new Chance()
@@ -37,5 +37,31 @@ module.exports = {
       .assert.hidden('@formError')
 
     browser.end()
-  }
+  },
+  // 'join with invalid data': function (browser) {
+  //   const joinPage = browser.page.JoinPage()
+
+  //   joinPage
+  //     .navigate()
+  //     .join('', '', '')
+
+  //   // This assertion is just to make sure the page doesn't
+  //   // redirect to login page. It would be better to assertion
+  //   // the validation error for each field individually.
+  //   browser
+  //     .assert.urlEquals(browser.launchUrl + 'join')
+  //     .end()
+  // },
+  // 'join with valid data': function (browser) {
+  //   const joinPage = browser.page.JoinPage()
+
+  //   joinPage
+  //     .navigate()
+  //     .join(user.username, user.emailAddress, user.password)
+
+  //   browser.pause(2000)
+  //   browser
+  //     .assert.urlEquals(browser.launchUrl + 'login')
+  //     .end()
+  // }
 }
