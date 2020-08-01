@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
+import { library as faLibrary } from '@fortawesome/fontawesome-svg-core'
+import { faHome, faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // axios 설정
 axios.defaults.baseURL = '/api'  //모든 요청에 '/api' 붙도록 기본 설정
@@ -15,7 +18,15 @@ axios.interceptors.response.use(  //Error 전파하기 위해 인터셉터 응�
   }
 )
 
+//Vuelidate 세팅
 Vue.use(Vuelidate)
+
+// FontAwesome 세팅
+faLibrary.add(faHome)
+faLibrary.add(faSearch)
+faLibrary.add(faPlus)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 
 Vue.config.productionTip = false
 
