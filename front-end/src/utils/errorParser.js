@@ -1,5 +1,6 @@
 import _ from 'lodash'
 
+/**한글을 꺠져서 보내짐 */
 export default {
   parse (error) {
     if (error.response) {

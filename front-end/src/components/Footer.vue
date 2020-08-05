@@ -13,10 +13,6 @@
 <script>
 export default {
     name: 'Footer',
-
-    created () {
-      this.$store.dispatch('getInfoData')
-    },
 }
 </script>
 

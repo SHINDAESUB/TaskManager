@@ -58,7 +58,7 @@ export default {
     ])
   },
   created () {
-    this.$store.dispatch('getMyData')
+    this.$store.dispatch('getInfoData')
   },
   methods: {
     goHome () {
