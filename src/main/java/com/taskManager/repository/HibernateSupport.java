@@ -10,8 +10,9 @@ import javax.persistence.EntityManager;
  * Session : DB의 연결을 담당한다.
  */
 
-abstract class HibernateSupport {
-  EntityManager entityManager;
+abstract class HibernateSupport<T> {
+
+  private EntityManager entityManager;
 
   HibernateSupport(EntityManager entityManager) {
     this.entityManager = entityManager;
@@ -19,6 +20,11 @@ abstract class HibernateSupport {
 
   Session getSession() {
     return entityManager.unwrap(Session.class);
+  }
+
+  public void save(T object) {
+    entityManager.persist(object);
+    entityManager.flush();
   }
 
 }

@@ -142,6 +142,6 @@ public class UserServiceImplTests {
         "welcome.ftl",
         MessageVariable.from("New user", newUser)
       );
-      verify(domainEventPublisherMock).publish(new JoinEvent(newUser));
+      verify(domainEventPublisherMock).publish(new JoinEvent( this,newUser));
     }    
 }

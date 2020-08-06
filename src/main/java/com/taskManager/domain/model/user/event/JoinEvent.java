@@ -10,8 +10,8 @@ public class JoinEvent extends DomainEvent {
 
   private User user;
 
-  public JoinEvent(User user) {
-    super(user);
+  public JoinEvent(Object source, User user) {
+    super(source);
     Assert.notNull(user, "`user` 파라미터는 null이 아닙니다.");
     this.user = user;
   }

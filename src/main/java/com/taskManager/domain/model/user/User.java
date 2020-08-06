@@ -43,11 +43,8 @@ public class User extends AbstractBaseEntity {
   @Column(name = "created_date", nullable = false)
   private Date createdDate;
 
-  public User() {
-  }
-
   /**
-   * Create new user during registration
+   * 새 유저 생성 
    */
   public static User create(final String username, final String emailAddress, final String password) {
     final User user = new User();
@@ -65,8 +62,8 @@ public class User extends AbstractBaseEntity {
     this.lastName = lastName;
   }
 
-  public Long getId() {
-    return id;
+  public UserId getId() {
+    return new UserId(id);
   }
 
   public String getUsername() {

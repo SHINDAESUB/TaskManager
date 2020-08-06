@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     User signUp = joinManagement.join(command.getUsername(), command.getEmailAddress(), command.getPassword());
 
     sendWelcomeMessage(signUp);
-    domainEventPublisher.publish(new JoinEvent(signUp));
+    domainEventPublisher.publish(new JoinEvent(this, signUp));
   }
 
   /* 사용자가 등록되면 command에 검증이 완료된 입력한 주소로 보낸다. */

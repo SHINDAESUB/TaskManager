@@ -12,7 +12,7 @@ import com.taskManager.domain.model.user.UserRepository;
  * 회원가입 구현부
  */
 @Repository
-public class HibernateUserRepository extends HibernateSupport implements UserRepository {
+public class HibernateUserRepository extends HibernateSupport<User> implements UserRepository {
 
   HibernateUserRepository(EntityManager entityManager) {
     super(entityManager);
@@ -30,12 +30,6 @@ public class HibernateUserRepository extends HibernateSupport implements UserRep
     Query<User> query = getSession().createQuery("from User where emailAddress = :emailAddress", User.class);
     query.setParameter("emailAddress", emailAddress);
     return query.uniqueResult();
-  }
-
-  @Override
-  public void save(User newUser) {
-    entityManager.persist(newUser);
-    entityManager.flush();
   }
 
 }
