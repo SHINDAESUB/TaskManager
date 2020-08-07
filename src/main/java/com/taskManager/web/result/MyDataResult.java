@@ -13,10 +13,14 @@ import com.taskManager.domain.model.user.User;
 
 public class MyDataResult {
 
-    public static ResponseEntity<ApiResult> build(User user, List<Team> teams, List<Board> boards) {
+    public static ResponseEntity<ApiResult> build(User user, List<Team> teams, List<Board> boards ,String socketServerUrl, String socketToken) {
       Map<String, Object> userData  = new HashMap<>();
       userData.put("name", user.getFirstName() + " " + user.getLastName());
-  
+      userData.put("token", socketToken);
+      
+      Map<String, Object> settings = new HashMap<>();
+      settings.put("socketServerUrl", socketServerUrl);
+    
       List<TeamResult> teamResults = new ArrayList<>();
       for (Team team : teams) {
         teamResults.add(new TeamResult(team));
@@ -30,7 +34,8 @@ public class MyDataResult {
       ApiResult apiResult = ApiResult.blank()
         .add("user", userData)
         .add("teams", teamResults)
-        .add("boards", boardResults);
+        .add("boards", boardResults)
+        .add("settings", settings);
   
       return Result.ok(apiResult);
     }

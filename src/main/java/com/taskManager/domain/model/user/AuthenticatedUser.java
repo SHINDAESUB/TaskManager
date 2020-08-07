@@ -83,7 +83,7 @@ public class AuthenticatedUser implements UserDetails, Serializable {
       return "AuthenticatedUser{" +
         "userId=" + userId +
         ", username='" + username + '\'' +
-        ", password='" + password + '\'' +
+        ", password=[Protected]" +
         '}';
     }  
 }
