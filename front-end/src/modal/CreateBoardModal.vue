@@ -37,7 +37,7 @@
 <script>
 import $ from 'jquery'
 import { required } from 'vuelidate/lib/validators'
-import boardService from '@/service/borders'
+import boardService from '@/service/boards'
 
 export default {
     name: 'CreateBoardModal',

@@ -19,6 +19,8 @@ describe( 'JoinPage.vue' , ()=> {
   let wrapper
   let fieldUserName
   let fieldEmailAddress
+  let fieldFirstName
+  let fieldLastName
   let fieldPassword
   let buttonSubmit
   let joinSpy
@@ -30,6 +32,8 @@ describe( 'JoinPage.vue' , ()=> {
     })
     fieldUserName = wrapper.find('#username')  //wrapper.find 는 선택자에 해당하는 HTML 요소를 찾아주는 API
     fieldEmailAddress = wrapper.find('#emailAddress')
+    fieldFirstName = wrapper.find('#firstName')
+    fieldLastName = wrapper.find('#lastName')
     fieldPassword = wrapper.find('#password')
     buttonSubmit = wrapper.find('form button[type="submit"]')
     // spy 회원 가입 서비스 생성
@@ -50,6 +54,8 @@ describe( 'JoinPage.vue' , ()=> {
   it('등록 페이지 렌더링 테스트', () => {
     expect(fieldUserName.element.value).toEqual('')
     expect(fieldEmailAddress.element.value).toEqual('')
+    expect(fieldFirstName.element.value).toEqual('')
+    expect(fieldLastName.element.value).toEqual('')
     expect(fieldUserName.element.value).toEqual('')
     expect(buttonSubmit.text()).toEqual('계정생성')
    })
@@ -57,6 +63,8 @@ describe( 'JoinPage.vue' , ()=> {
    it('data model 초기값 테스트', () => {
      expect(wrapper.vm.form.username).toEqual('')  //wrapper.vm 으로 Vue 인스턴스 접근, vm 의 모든 메소드와 프로퍼티에 접근 가능
      expect(wrapper.vm.form.emailAddress).toEqual('')
+     expect(wrapper.vm.form.firstName).toEqual('')
+     expect(wrapper.vm.form.lastName).toEqual('')
      expect(wrapper.vm.form.password).toEqual('')
    })
 

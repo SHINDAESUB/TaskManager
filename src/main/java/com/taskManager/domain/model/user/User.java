@@ -46,13 +46,13 @@ public class User extends AbstractBaseEntity {
   /**
    * 새 유저 생성 
    */
-  public static User create(final String username, final String emailAddress, final String password) {
+  public static User create(final String username, final String emailAddress,String firsName, String lastName, String password) {
     final User user = new User();
     user.username = username;
     user.emailAddress = emailAddress;
     user.password = password;
-    user.firstName = "";
-    user.lastName = "";
+    user.firstName = firsName;
+    user.lastName = lastName;
     user.createdDate = new Date();
     return user;
   }
@@ -84,6 +84,10 @@ public class User extends AbstractBaseEntity {
 
   public String getLastName() {
     return lastName;
+  }
+
+  public String getInitials() {
+    return (firstName.substring(0, 1) + lastName.substring(0, 1)).toUpperCase();
   }
 
   public Date getCreatedDate() {

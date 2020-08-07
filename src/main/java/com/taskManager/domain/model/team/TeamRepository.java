@@ -8,5 +8,10 @@ public interface TeamRepository {
     
     List<Team> findTeamsByUserId(UserId userId);
 
+  /**
+   * Find a team by id
+   */
+    Team findById(TeamId teamId);
+
     void save(Team team);
 }

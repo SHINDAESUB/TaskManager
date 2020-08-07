@@ -36,7 +36,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="profileMenu">
           <button class="dropdown-item" type="button">프로필</button>
-          <button class="dropdown-item" type="button">로그아웃</button>
+          <button class="dropdown-item" type="button" @click="signOut()">로그아웃</button>
         </div>
       </div>
     </div>
@@ -46,6 +46,8 @@
 <script>
 import 'bootstrap/dist/js/bootstrap.min'
 import { mapGetters } from 'vuex'
+import infoService from '@/service/info'
+import notify from '@/utils/notify'
 
 export default {
   name: 'Header',
@@ -66,13 +68,21 @@ export default {
     },
     openBoard (board) {
       this.$router.push({name: 'board', params: { boardId: board.id }})
-    }
+    },
+    signOut () {
+      infoService.signOut().then(() => {
+        this.$router.push({name: 'login'})
+      }).catch(error => {
+        notify.error(error.message)
+      })
+    }  
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-header {
+  flex: none;
   padding: 9px 10px 8px;
   border-bottom: 1px solid #eee;
 

@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 import com.taskManager.domain.application.command.CreateTeamCommand;
 import com.taskManager.domain.common.event.DomainEventPublisher;
 import com.taskManager.domain.model.team.Team;
+import com.taskManager.domain.model.team.TeamId;
 import com.taskManager.domain.model.team.TeamRepository;
 import com.taskManager.domain.model.team.event.TeamCreatedEvent;
 import com.taskManager.domain.model.user.UserId;
@@ -29,6 +30,11 @@ public class TeamServiceImpl implements TeamService {
   @Override
   public List<Team> findTeamsByUserId(UserId userId) {
     return teamRepository.findTeamsByUserId(userId);
+  }
+  
+  @Override
+  public Team findById(TeamId teamId) {
+    return teamRepository.findById(teamId);
   }
 
   @Override

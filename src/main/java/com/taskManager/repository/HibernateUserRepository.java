@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 
 import com.taskManager.domain.model.user.User;
+import com.taskManager.domain.model.user.UserId;
 import com.taskManager.domain.model.user.UserRepository;
 
 /**
@@ -29,6 +30,13 @@ public class HibernateUserRepository extends HibernateSupport<User> implements U
   public User findByEmailAddress(String emailAddress) {
     Query<User> query = getSession().createQuery("from User where emailAddress = :emailAddress", User.class);
     query.setParameter("emailAddress", emailAddress);
+    return query.uniqueResult();
+  }
+
+  @Override
+  public User findById(UserId userId) {
+    Query<User> query = getSession().createQuery("from User where id = :id", User.class);
+    query.setParameter("id", userId.value());
     return query.uniqueResult();
   }
 

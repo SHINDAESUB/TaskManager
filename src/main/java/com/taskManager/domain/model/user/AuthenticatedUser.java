@@ -80,7 +80,7 @@ public class AuthenticatedUser implements UserDetails, Serializable {
   
     @Override
     public String toString() {
-      return "SimpleUser{" +
+      return "AuthenticatedUser{" +
         "userId=" + userId +
         ", username='" + username + '\'' +
         ", password='" + password + '\'' +

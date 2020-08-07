@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
       http
         .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
         .and()
-        .authorizeRequests()
+          .authorizeRequests()
           .antMatchers(PUBLIC).permitAll() // PUBLIC 에 설정한 HTTP 요청은 누구나 허용
           .anyRequest().authenticated()    // PUBLIC 을 제외한 경로는 인증 필요 설정
         .and()
@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
           .loginPage("/login")  //로그인 URL 경로 걸정
         .and()
           .logout()
-          .logoutUrl("/logout") //로그아웃 URL 경로 걸정
+          .logoutUrl("/api/logout") //로그아웃 URL 경로 걸정
           .logoutSuccessHandler(logoutSuccessHandler()) //로그아웃 이후 리다이렉트 경로 설정 
         .and()
           .csrf().disable();

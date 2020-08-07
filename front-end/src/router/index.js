@@ -23,7 +23,7 @@ export default new Router({
     name: 'join',
     component: JoinPage
   }, {
-    path: '/board/:boardId',
+    path: '/boards/:boardId',
     name: 'board',
     component: BoardPage
   }]

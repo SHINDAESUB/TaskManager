@@ -45,6 +45,8 @@ public class JoinControllerTests {
     payload.setUsername("exist");
     payload.setEmailAddress("test@taskagile.com");
     payload.setPassword("MyPassword!");
+    payload.setFirstName("User");
+    payload.setLastName("Test");
 
     doThrow(UsernameExistsException.class).when(serviceMock).join(payload.toCommand());
 
@@ -62,6 +64,8 @@ public class JoinControllerTests {
     payload.setUsername("test");
     payload.setEmailAddress("exist@taskagile.com");
     payload.setPassword("MyPassword!");
+    payload.setFirstName("User");
+    payload.setLastName("Test");
 
     doThrow(EmailAddressExistsException.class)
       .when(serviceMock)
@@ -81,6 +85,8 @@ public class JoinControllerTests {
     payload.setUsername("sunny");
     payload.setEmailAddress("sunny@taskagile.com");
     payload.setPassword("MyPassword!");
+    payload.setFirstName("User");
+    payload.setLastName("Test");
 
     doNothing().when(serviceMock)
       .join(payload.toCommand());

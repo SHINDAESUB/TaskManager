@@ -10,13 +10,13 @@
             {{errorMessage}}
           </div>
           <div class="form-group">
-	         <label for="username">이름</label>
+	         <label for="username">ID</label>
            <input type="text" class="form-control"  id="username" v-model="form.username">
            	<div class="field-error" v-if="$v.form.username.$dirty">
-              <div class="error" v-if="!$v.form.username.required">이름을 입력해주세요</div>
-              <div class="error" v-if="!$v.form.username.alphaNum">이름은 문자나 숫자만 입력가능합니다</div>
-              <div class="error" v-if="!$v.form.username.minLength">이름은 적어도 {{$v.form.username.$params.minLength.min}} 이상 입력하셔야 합니다.</div>
-              <div class="error" v-if="!$v.form.username.maxLength">이름은 최대 {{$v.form.username.$params.maxLength.max}} 가능합니다.</div>
+              <div class="error" v-if="!$v.form.username.required">ID를 입력해주세요</div>
+              <div class="error" v-if="!$v.form.username.alphaNum">ID은 문자나 숫자만 입력가능합니다</div>
+              <div class="error" v-if="!$v.form.username.minLength">ID는 적어도 {{$v.form.username.$params.minLength.min}} 이상 입력하셔야 합니다.</div>
+              <div class="error" v-if="!$v.form.username.maxLength">ID는 최대 {{$v.form.username.$params.maxLength.max}} 가능합니다.</div>
             </div>
           </div>
           <div class="form-group">
@@ -26,6 +26,26 @@
               <div class="error" v-if="!$v.form.emailAddress.required">이메일을 입력해주세요</div>
               <div class="error" v-if="!$v.form.emailAddress.email">이메일 형식에 맞게 적어주세요</div>
               <div class="error" v-if="!$v.form.emailAddress.maxLength">이메일은 최대 {{$v.form.emailAddress.$params.maxLength.max}} 입력가능합니다.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="firstName">성</label>
+            <input type="text" class="form-control" id="firstName" v-model="form.firstName">
+            <div class="field-error" v-if="$v.form.firstName.$dirty">
+              <div class="error" v-if="!$v.form.firstName.required">성을 입력해주세요</div>
+              <div class="error" v-if="!$v.form.firstName.alpha">성은 문자나 숫자만 입력 가능합니다.</div>
+              <div class="error" v-if="!$v.form.firstName.minLength">성은 적어도{{$v.form.firstName.$params.minLength.min}} 입력 해야합니다.</div>
+              <div class="error" v-if="!$v.form.firstName.maxLength">성은 최대 {{$v.form.firstName.$params.maxLength.max}} 입력 가능합니다.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">이름</label>
+            <input type="text" class="form-control" id="lastName" v-model="form.lastName">
+            <div class="field-error" v-if="$v.form.lastName.$dirty">
+              <div class="error" v-if="!$v.form.lastName.required">이름을 입력해주세요</div>
+              <div class="error" v-if="!$v.form.lastName.alpha">이름은 문자만 입력 가능합니다.</div>
+              <div class="error" v-if="!$v.form.lastName.minLength">이름은 적어도{{$v.form.lastName.$params.minLength.min}}입력 해야합니다.</div>
+              <div class="error" v-if="!$v.form.lastName.maxLength">이름은 최대{{$v.form.lastName.$params.maxLength.max}}입력 가능합니다.</div>
             </div>
           </div>
           <div class="form-group">
@@ -47,7 +67,7 @@
 
 <script>
 import joinService from '@/service/join'
-import { required , email , minLength , maxLength , alphaNum}  from 'vuelidate/lib/validators'
+import { required, email, minLength, maxLength, alphaNum, alpha } from 'vuelidate/lib/validators'
 import Footer from '@/components/Footer.vue'
 
 export default {
@@ -57,6 +77,8 @@ export default {
       form : {
         username: '',
         emailAddress : '',
+        firstName: '',
+        lastName: '',
         password : '',
       },
       errorMessage : ''
@@ -77,6 +99,18 @@ export default {
         required,
         email,
         maxLength: maxLength(100)
+      },
+      firstName: {
+        required,
+        minLength: minLength(1),
+        maxLength: maxLength(45),
+        alpha
+      },
+      lastName: {
+        required,
+        minLength: minLength(1),
+        maxLength: maxLength(45),
+        alpha
       },
       password:{
         required,

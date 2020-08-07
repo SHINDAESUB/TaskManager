@@ -4,10 +4,12 @@ import java.util.List;
 
 import com.taskManager.domain.application.service.BoardService;
 import com.taskManager.domain.application.service.TeamService;
+import com.taskManager.domain.application.service.UserService;
 import com.taskManager.domain.common.security.CurrentUser;
 import com.taskManager.domain.model.board.Board;
 import com.taskManager.domain.model.team.Team;
 import com.taskManager.domain.model.user.AuthenticatedUser;
+import com.taskManager.domain.model.user.User;
 import com.taskManager.web.result.ApiResult;
 import com.taskManager.web.result.MyDataResult;
 
@@ -16,14 +18,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MeApiController {
+public class MyInfoApiController {
 
   private TeamService teamService;
   private BoardService boardService;
+  private UserService userService;
 
-  public MeApiController(TeamService teamService, BoardService boardService) {
+  public MyInfoApiController(TeamService teamService, BoardService boardService, UserService userService) {
     this.teamService = teamService;
     this.boardService = boardService;
+    this.userService = userService;
   }
 
   /**
@@ -31,8 +35,9 @@ public class MeApiController {
    */
   @GetMapping("/api/info")
   public ResponseEntity<ApiResult> getMyData(@CurrentUser AuthenticatedUser currentUser) {
+    User user = userService.findById(currentUser.getUserId());
     List<Team> teams = teamService.findTeamsByUserId(currentUser.getUserId());
     List<Board> boards = boardService.findBoardsByMembership(currentUser.getUserId());
-    return MyDataResult.build(currentUser, teams, boards);
+    return MyDataResult.build(user, teams, boards);
   }
 }

@@ -19,7 +19,7 @@ public class JoinManagement {
     this.passwordEncryptor = passwordEncryptor;
   }
 
-  public User join(String username, String emailAddress, String password) throws JoinException {
+  public User join(String username, String emailAddress,String firstName, String lastName, String password) throws JoinException {
     User existingUser = repository.findByUsername(username); //유저 이름 중복 조회(존재할 경우 예외처리 / 없을 경우 null 값)
       if (existingUser != null) {
         throw new UsernameExistsException();
@@ -31,7 +31,7 @@ public class JoinManagement {
       }
 
     String encryptedPassword = passwordEncryptor.encrypt(password); //비밀번호 복호화
-    User signUp = User.create(username, emailAddress.toLowerCase(), encryptedPassword);
+    User signUp = User.create(username, emailAddress.toLowerCase(),firstName, lastName,  encryptedPassword);
     repository.save(signUp);
     return signUp;
   }

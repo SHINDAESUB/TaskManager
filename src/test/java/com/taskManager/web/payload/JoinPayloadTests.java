@@ -31,7 +31,7 @@ public class JoinPayloadTests {
   public void validate_blackPayload_fail(){
     JoinPayload payload = new JoinPayload();
     Set<ConstraintViolation<JoinPayload>> violations = validator.validate(payload);
-    assertEquals(3, violations.size());
+    assertEquals(5, violations.size());
   }
 
 
@@ -48,6 +48,8 @@ public class JoinPayloadTests {
     payload.setEmailAddress(localPart + "@" + domain + ".com");
     payload.setUsername("MyUsername");
     payload.setPassword("MyPassword");
+    payload.setFirstName("Sunny");
+    payload.setLastName("Hu");
 
     Set<ConstraintViolation<JoinPayload>> violations = validator.validate(payload);
     assertEquals(1, violations.size());
@@ -60,6 +62,8 @@ public class JoinPayloadTests {
     payload.setUsername(usernameTooShort);
     payload.setPassword("MyPassword");
     payload.setEmailAddress("sunny@taskagile.com");
+    payload.setFirstName("Sunny");
+    payload.setLastName("Hu");
 
     Set<ConstraintViolation<JoinPayload>> violations = validator.validate(payload);
     assertEquals(1, violations.size());
@@ -72,6 +76,8 @@ public class JoinPayloadTests {
     payload.setUsername(usernameTooLong);
     payload.setPassword("MyPassword");
     payload.setEmailAddress("sunny@taskagile.com");
+    payload.setFirstName("Sunny");
+    payload.setLastName("Hu");
 
     Set<ConstraintViolation<JoinPayload>> violations = validator.validate(payload);
     assertEquals(1, violations.size());
@@ -84,6 +90,8 @@ public class JoinPayloadTests {
     payload.setPassword(passwordTooShort);
     payload.setUsername("MyUsername");
     payload.setEmailAddress("sunny@taskagile.com");
+    payload.setFirstName("Sunny");
+    payload.setLastName("Hu");
 
     Set<ConstraintViolation<JoinPayload>> violations = validator.validate(payload);
     assertEquals(1, violations.size());
@@ -96,6 +104,8 @@ public class JoinPayloadTests {
     payload.setPassword(passwordTooLong);
     payload.setUsername("MyUsername");
     payload.setEmailAddress("sunny@taskagile.com");
+    payload.setFirstName("Sunny");
+    payload.setLastName("Hu");
 
     Set<ConstraintViolation<JoinPayload>> violations = validator.validate(payload);
     assertEquals(1, violations.size());

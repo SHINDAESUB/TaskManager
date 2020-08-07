@@ -12,5 +12,14 @@ export default {
         reject(errorParser.parse(error))
       })
     })
-  }
+  },
+  signOut () {
+    return new Promise((resolve, reject) => {
+      axios.post('/logout').then(({data}) => {
+        resolve(data)
+      }).catch((error) => {
+        reject(errorParser.parse(error))
+      })
+    })
+  }  
 }

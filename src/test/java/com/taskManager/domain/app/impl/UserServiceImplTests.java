@@ -73,7 +73,7 @@ public class UserServiceImplTests {
     @Test
     public void loadUserByUsername_existUsername_shouldSucceed() throws IllegalAccessException {
       String existUsername = "test";
-      User foundUser = User.create(existUsername, "test@test.com", "EncryptedPassword!");
+      User foundUser = User.create(existUsername, "user@taskagile.com", "Test", "User", "EncryptedPassword!");
       foundUser.updateName("Test", "User");
 
       FieldUtils.writeField(foundUser, "id", 1L, true);
@@ -103,10 +103,12 @@ public class UserServiceImplTests {
       String username = "existing";
       String emailAddress = "tests@test.com";
       String password = "MyPassword!";
+      String firstName = "Sunny";
+      String lastName = "Hu";
       doThrow(UsernameExistsException.class).when(joinManagementMock)
-        .join(username, emailAddress, password);
+        .join(username, emailAddress, firstName, lastName, password);
   
-      JoinCommand command = new JoinCommand(username, emailAddress, password);
+      JoinCommand command = new JoinCommand(username, emailAddress, firstName, lastName, password);
       instance.join(command);
     }
   
@@ -115,10 +117,12 @@ public class UserServiceImplTests {
       String username = "tests";
       String emailAddress = "existing@test.com";
       String password = "MyPassword!";
+      String firstName = "Sunny";
+      String lastName = "Hu";
       doThrow(EmailAddressExistsException.class).when(joinManagementMock)
-        .join(username, emailAddress, password);
+        .join(username, emailAddress, firstName, lastName, password);
   
-        JoinCommand command = new JoinCommand(username, emailAddress, password);
+        JoinCommand command = new JoinCommand(username, emailAddress, firstName, lastName, password);
       instance.join(command);
     }
   
@@ -128,10 +132,12 @@ public class UserServiceImplTests {
       String username = "tests";
       String emailAddress = "tests@test.com";
       String password = "MyPassword!";
-      User newUser = User.create(username, emailAddress, password);
-      when(joinManagementMock.join(username, emailAddress, password))
+      String firstName = "Sunny";
+      String lastName = "Hu";
+      User newUser = User.create(username, emailAddress, firstName, lastName, password);
+      when(joinManagementMock.join(username, emailAddress, firstName, lastName, password))
         .thenReturn(newUser);
-        JoinCommand command = new JoinCommand(username, emailAddress, password);
+        JoinCommand command = new JoinCommand(username, emailAddress, firstName, lastName, password);
   
       instance.join(command);
   

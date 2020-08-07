@@ -9,6 +9,7 @@ import com.taskManager.domain.common.mail.MessageVariable;
 import com.taskManager.domain.model.user.AuthenticatedUser;
 import com.taskManager.domain.model.user.JoinManagement;
 import com.taskManager.domain.model.user.User;
+import com.taskManager.domain.model.user.UserId;
 import com.taskManager.domain.model.user.UserRepository;
 import com.taskManager.domain.model.user.event.JoinEvent;
 import com.taskManager.domain.model.user.exception.join.JoinException;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
   public void join(JoinCommand command) throws JoinException {
 
     Assert.notNull(command, "매개변수 command 는 검증을 마치고 'null' 값이 아닙니다.");
-    User signUp = joinManagement.join(command.getUsername(), command.getEmailAddress(), command.getPassword());
+    User signUp = joinManagement.join(command.getUsername(), command.getEmailAddress(), command.getFirstName(), command.getLastName(), command.getPassword());
 
     sendWelcomeMessage(signUp);
     domainEventPublisher.publish(new JoinEvent(this, signUp));
@@ -80,6 +81,11 @@ public class UserServiceImpl implements UserService {
     
     //UserDetails interface를 구현 하는 AuthenticatedUser 인스턴스 반환
     return new AuthenticatedUser(user);
+  }
+
+  @Override
+  public User findById(UserId userId) {
+    return userRepository.findById(userId);
   }
 
 }
