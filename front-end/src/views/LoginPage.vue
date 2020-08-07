@@ -67,6 +67,7 @@ export default {
       }
       loginService.login(this.form).then(() => {
         this.$router.push({name: 'home'})
+        this.$bus.$emit('authenticated')
       }).catch((error) => {
         this.errorMessage = error.message
       })

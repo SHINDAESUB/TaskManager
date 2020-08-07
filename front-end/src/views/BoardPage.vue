@@ -129,6 +129,7 @@ export default {
           })
         })
       })
+      vm.$sc.subscribe('/boards/' + vm.board.id, vm.onSocketClientUpdated)
     }).catch(error => {
       notify.error(error.message)
     })
@@ -138,10 +139,11 @@ export default {
   },
   beforeDestroy () {
     this.$el.removeEventListener('click', this.dismissActiveForms)
+    this.$rt.unsubscribe('/boards/' + this.board.id, this.onSocketClientUpdated)
   },
   methods: {
     dismissActiveForms (event) {
-      console.log('dismissing forms')
+      onsole.log('[BoardPage] forms 초기화')
       let dismissAddCardForm = true
       let dismissAddListForm = true
       if (event.target.closest('.add-card-form') || event.target.closest('.add-card-button')) {
@@ -231,7 +233,8 @@ export default {
       cardList.cardForm.open = false
     },
     onCardListDragEnded (event) {
-      // Get the latest card list order and send it to the back-end
+      console.log('[BoardPage] 카드 드래그 끝나면 실행 되는 이벤트', event)
+
       const positionChanges = {
         boardId: this.board.id,
         cardListPositions: []
@@ -247,8 +250,8 @@ export default {
       })
     },
     onCardDragEnded (event) {
-      console.log('card drag ended', event)
-      // Get the card list that have card orders changed
+      console.log('[BoardPage] 카드 드래그 끝나면 실행 되는 이벤트', event)
+
       const fromListId = event.from.dataset.listId
       const toListId = event.to.dataset.listId
       const changedListIds = [fromListId]
@@ -272,6 +275,9 @@ export default {
       cardService.changePositions(positionChanges).catch(error => {
         notify.error(error.message)
       })
+    },
+    onSocketClientUpdated (updates) {
+
     }
   }
 }
@@ -429,7 +435,7 @@ export default {
                   }
                 }
                 .ghost-card {
-                  background-color: #377EF6 !important;
+                  background-color: #ccc !important;
                   color: #377EF6 !important;
                 }
               }

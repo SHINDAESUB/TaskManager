@@ -1,6 +1,7 @@
 /* 개인 정보 , 작성한 게시판 , 팀 조회 */
 import axios from 'axios'
 import errorParser from '@/utils/errorParser'
+import eventBus from '@/eventBus'
 
 export default {
 
@@ -17,6 +18,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('/logout').then(({data}) => {
         resolve(data)
+        eventBus.$emit('myDataFetched', data)
       }).catch((error) => {
         reject(errorParser.parse(error))
       })

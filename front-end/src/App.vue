@@ -8,7 +8,13 @@
 import 'bootstrap/dist/js/bootstrap.min'
 
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    this.$bus.$on('myDataFetched', myData => {
+      // Socket.js 초기화 
+      this.$sc.init(myData.settings.socketClinentServerUrl, myData.user.token)
+    })
+  }
 }
 </script>
 

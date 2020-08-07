@@ -7,6 +7,8 @@ import Vuelidate from 'vuelidate'
 import { library as faLibrary } from '@fortawesome/fontawesome-svg-core'
 import { faHome, faSearch, faPlus, faEllipsisH, faUserPlus, faListUl } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import eventBus from './eventBus'
+import socketClient from '@/socketClient'
 
 // axios 설정
 axios.defaults.baseURL = '/api'  //모든 요청에 '/api' 붙도록 기본 설정
@@ -27,6 +29,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
 Vue.config.productionTip = false
+
+//소켓 설정하기 위한 설정
+Vue.prototype.$bus = eventBus
+Vue.prototype.$sc = socketClient
 
 new Vue({
   router,
