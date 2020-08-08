@@ -26,7 +26,7 @@ public class ApplicationProperties {
 
   @NotBlank
   @NotEmpty
-  private String realTimeServerUrl;
+  private String socketServerUrl;
 
 
   public void setMailFrom(String mailFrom) {
@@ -44,11 +44,11 @@ public class ApplicationProperties {
     this.tokenSecretKey = tokenSecretKey;
   }
 
-  public String getRealTimeServerUrl() {
-    return realTimeServerUrl;
+  public String getSocketServerUrl() {
+    return socketServerUrl;
   }
 
-  public void setRealTimeServerUrl(String realTimeServerUrl) {
-    this.realTimeServerUrl = realTimeServerUrl;
+  public void setSocketServerUrl(String socketServerUrl) {
+    this.socketServerUrl = socketServerUrl;
   }
 }
