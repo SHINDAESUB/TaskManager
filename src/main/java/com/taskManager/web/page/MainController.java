@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-  @GetMapping(value = { "/", "/login" , "/join"})
+  @GetMapping(value = { "/", "/login" , "/join","/boards/*", "/card/**" })
   public String entry() {
     return "index";
   }
