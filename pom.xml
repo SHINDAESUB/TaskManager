@@ -321,20 +321,21 @@
         </configuration>
       </plugin>
 
-
-
     <!-- maven-surefire-plugin 추가 -->
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-surefire-plugin</artifactId>
       <version>2.19.1</version>
-      <!-- 사용하고자 하는 JDK의 java 경로 -->
       <configuration>
           <jvm>
-            C:\Program Files\OpenJDK\java-11-openjdk-11.0.7.10-1.windows.ojdkbuild.x86_64\bin\java
+            C:\Program Files\JAVA\java-11-openjdk\java-11-openjdk-11.0.7.10-1.windows.ojdkbuild.x86_64\bin\java
+            <!-- C:\Program Files\OpenJDK\java-11-openjdk-11.0.7.10-1.windows.ojdkbuild.x86_64\bin\java -->
           </jvm>
       </configuration>
     </plugin>
+
+    
+
 
 
     </plugins>

@@ -73,6 +73,7 @@ export default {
     },
     signOut () {
       this.$sc.logout()
+      
       infoService.signOut().then(() => {
         this.$store.dispatch('logout') 
         this.$router.push({name: 'login'})

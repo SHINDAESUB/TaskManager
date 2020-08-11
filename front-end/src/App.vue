@@ -12,7 +12,7 @@ export default {
   created () {
     this.$bus.$on('myDataFetched', myData => {
       // Socket.js 초기화 
-      this.$sc.init(myData.settings.socketClientServerUrl, myData.user.token)
+      this.$sc.init(myData.settings.socketServerUrl, myData.user.token)
     })
   }
 }

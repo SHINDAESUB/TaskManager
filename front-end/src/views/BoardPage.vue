@@ -139,11 +139,11 @@ export default {
   },
   beforeDestroy () {
     this.$el.removeEventListener('click', this.dismissActiveForms)
-    this.$rt.unsubscribe('/boards/' + this.board.id, this.onSocketClientUpdated)
+    this.$sc.unsubscribe('/boards/' + this.board.id, this.onSocketClientUpdated)
   },
   methods: {
     dismissActiveForms (event) {
-      onsole.log('[BoardPage] forms 초기화')
+      console.log('[BoardPage] forms 초기화')
       let dismissAddCardForm = true
       let dismissAddListForm = true
       if (event.target.closest('.add-card-form') || event.target.closest('.add-card-button')) {

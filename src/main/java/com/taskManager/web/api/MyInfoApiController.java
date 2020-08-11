@@ -30,7 +30,8 @@ public class MyInfoApiController {
   private TokenManager tokenManager;
 
     /* application.properties 에 추가되는 비밀 키 (${app.socket-server-url}) 주입한다. */
-  public MyInfoApiController(@Value("${app.socket-server-url}") String socketServerUrl,
+  public MyInfoApiController(@Value("${app.socket-server-url}") 
+                             String socketServerUrl,
                              TeamService teamService, 
                              BoardService boardService, 
                              UserService userService, 
